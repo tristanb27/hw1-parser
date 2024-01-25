@@ -105,7 +105,6 @@ def domainChecker(line, domainLine):
             print("ERROR --element")
             return
         if domainLine[i+1] == ">":
-            print(line)
             print("Sender ok")
             return
         i+=1

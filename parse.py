@@ -69,7 +69,17 @@ def checkPath(line, pathLine):
         print("ERROR --path")
         return
     finalCheck = checkNull(finalLine[1:])
-    checkCRLF(line, finalCheck)
+    CRLFCheck = checkCRLF(line, finalCheck)
+    if CRLFCheck != True:
+        print("ERROR --CRLF")
+        return
+    else:
+        printLine(line)
+
+def printLine(line):
+    sys.stdout.write(line)
+    print("Sender ok")
+
 
 
 # Function that checks the mailbox by checking local, the @ symbol in between, and domain. If the local name or domain result in an error, it returns none and the statement is printed out
@@ -144,10 +154,9 @@ def checkWhitespace(whitespaceLine):
 # Checks to see if the \n character exists
 def checkCRLF(line, lineCRLF):
     if lineCRLF != CRLF:
-        print("ERROR --CRLF")
-        return
-    sys.stdout.write(line)
-    print("Sender ok")
+        return False
+    else:
+        return True
 
 
 

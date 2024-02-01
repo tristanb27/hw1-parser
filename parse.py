@@ -71,6 +71,7 @@ def checkPath(line, pathLine):
     finalCheck = checkNull(finalLine[1:])
     CRLFCheck = checkCRLF(line, finalCheck)
     if CRLFCheck != True:
+        sys.stdout.write(line)
         print("ERROR --CRLF")
         return
     else:

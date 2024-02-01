@@ -137,23 +137,23 @@ def checkString(line,stringLine):
 def checkDomain(line,domainLine):
     i = 0
     while i < len(domainLine):
+        if domainLine[0] in sp or domainLine[0] in special:
+            sys.stdout.write(line)
+            print("ERROR -- element")
+            return None
         if domainLine[i] in letter or domainLine[i] in digit:
             i+=1 
-        elif domainLine[i] == '.':
-            if domainLine[i+1] in letter == False or domainLine[i+1] in digit == False:
+        if domainLine[i] in sp or domainLine[i] in special:
+            if domainLine[i] == '.' and (domainLine[i+1] in letter or domainLine[i+1] in digit):
+                i+=1
+            if domainLine[i] == '.' and (domainLine[i+1] not in letter or domainLine[i+1] not in digit):
                 sys.stdout.write(line)
                 print("ERROR -- element")
                 return None
             else:
-                i+=1
-        elif domainLine[i] == ">":
+                return domainLine[i:]
+        if domainLine[i] == CRLF:
             return domainLine[i:]
-        elif domainLine[i] == CRLF:
-            return domainLine[i:]
-        else:
-            sys.stdout.write(line)
-            print("ERROR -- element")
-            return None
         
 
 # Checks the whitespace by seeing if at least one character of whitespace exists already, and then checking for further whitespaces

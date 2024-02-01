@@ -142,8 +142,8 @@ def checkDomain(line,domainLine):
             print("ERROR -- element")
             return None
         if domainLine[i] in letter or domainLine[i] in digit:
-            i+=1 
-        if domainLine[i] in sp or domainLine[i] in special:
+            i+=1
+        elif domainLine[i] in sp or digit:
             if domainLine[i] == '.' and (domainLine[i+1] in letter or domainLine[i+1] in digit):
                 i+=1
             elif domainLine[i] == '.' and (domainLine[i+1] not in letter or domainLine[i+1] not in digit):
@@ -152,7 +152,9 @@ def checkDomain(line,domainLine):
                 return None
             else:
                 return domainLine[i:]
-        if domainLine[i] == CRLF:
+        elif domainLine[i] == CRLF:
+            return domainLine[i:]
+        else:
             return domainLine[i:]
         
 

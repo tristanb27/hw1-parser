@@ -13,36 +13,45 @@ null = None
 # Function that hard checks if "MAIL" and "FROM:" are in the cmd, along with infinite whitespace in between
 def mail_from_cmd(line):
     if line[0] != 'M':
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if line[1] != 'A':
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if line[2] != 'I':
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if line[3] != 'L':
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
-    fromLine = checkWhitespace(line[4:])
+    fromLine = checkWhitespace(line,line[4:])
     if fromLine is None:
         return
     if fromLine[0] != "F":
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if fromLine[1] != "R":
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if fromLine[2] != "O":
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if fromLine[3] != "M":
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
     if fromLine[4] != ":":
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
         return
-    reversePathLine = checkNull(fromLine[5:])
+    reversePathLine = checkNull(line,fromLine[5:])
     checkReversePath(line, reversePathLine)
 
 # Function used to check if a space between something is null. If it is, simply send the line back, but if it is not, go to the whitespace checker
@@ -50,7 +59,7 @@ def checkNull(nullSpaceLine):
     if nullSpaceLine[0] not in sp:
         return nullSpaceLine
     else:
-        return checkWhitespace(nullSpaceLine)
+        return checkWhitespace(line,nullSpaceLine)
 
 # Function that feeds into the check path function
 def checkReversePath(line, reversePathLine):
@@ -60,12 +69,14 @@ def checkReversePath(line, reversePathLine):
 # Function that checks if the first character is "<" and if the last character is ">". Between those two, it checks the mailbox
 def checkPath(line, pathLine):
     if pathLine[0] != "<":
+        sys.stdout.write(line)
         print("ERROR -- path")
         return
-    finalLine = checkMailbox(pathLine[1:])
+    finalLine = checkMailbox(line,pathLine[1:])
     if finalLine is None:
         return
     if finalLine [0] != ">":
+        sys.stdout.write(line)
         print("ERROR -- path")
         return
     finalCheck = checkNull(finalLine[1:])
@@ -84,27 +95,29 @@ def printLine(line):
 
 
 # Function that checks the mailbox by checking local, the @ symbol in between, and domain. If the local name or domain result in an error, it returns none and the statement is printed out
-def checkMailbox(mailboxLine):
-    atSymbolLine = checkLocalName(mailboxLine)
+def checkMailbox(line,mailboxLine):
+    atSymbolLine = checkLocalName(line,mailboxLine)
     if atSymbolLine is None:
         return
     if atSymbolLine[0] != "@":
+        sys.stdout.write(line)
         print("ERROR -- mailbox")
         return
-    finalBracketLine = checkDomain(atSymbolLine[1:])
+    finalBracketLine = checkDomain(line,atSymbolLine[1:])
     if finalBracketLine is None:
         return
     return finalBracketLine
 
 
 # Goes into check string
-def checkLocalName(localNameLine):
-    return checkString(localNameLine)
+def checkLocalName(line,localNameLine):
+    return checkString(line,localNameLine)
 
 
 # Function for checking local name standards
-def checkString(stringLine):
+def checkString(line,stringLine):
     if stringLine[0] in sp or stringLine[0] in special:
+        sys.stdout.write(line)
         print("ERROR -- string")
         return None
     i = 0
@@ -114,19 +127,21 @@ def checkString(stringLine):
         if stringLine[i] == "@":
             return stringLine[i:]
         if stringLine[i] in special:
+            sys.stdout.write(line)
             print("ERROR -- string")
             return None
         i+=1
 
 
 # Checks the domain to see if it is a let-dig-str, and if it is a '.', to see if another let-dig-str is after it
-def checkDomain(domainLine):
+def checkDomain(line,domainLine):
     i = 0
     while i < len(domainLine):
         if domainLine[i] in letter or domainLine[i] in digit:
             i+=1 
         elif domainLine[i] == '.':
             if domainLine[i+1] in letter == False or domainLine[i+1] in digit == False:
+                sys.stdout.write(line)
                 print("ERROR -- element")
                 return None
             else:
@@ -136,15 +151,17 @@ def checkDomain(domainLine):
         elif domainLine[i] == CRLF:
             return domainLine[i:]
         else:
+            sys.stdout.write(line)
             print("ERROR -- element")
             return None
         
 
 # Checks the whitespace by seeing if at least one character of whitespace exists already, and then checking for further whitespaces
-def checkWhitespace(whitespaceLine):
+def checkWhitespace(line,whitespaceLine):
     i = 0
     while i < len(whitespaceLine):
         if whitespaceLine[0] not in sp:
+            sys.stdout.write(line)
             print("ERROR -- whitespace")
             return None
         elif whitespaceLine[i] not in sp:
@@ -166,6 +183,7 @@ def main():
     if line != "":
         mail_from_cmd(line)
     else:
+        sys.stdout.write(line)
         print("ERROR -- mail-from-cmd")
 
 if __name__ == "__main__":

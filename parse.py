@@ -55,7 +55,7 @@ def mail_from_cmd(line):
     checkReversePath(line, reversePathLine)
 
 # Function used to check if a space between something is null. If it is, simply send the line back, but if it is not, go to the whitespace checker
-def checkNull(nullSpaceLine):
+def checkNull(line,nullSpaceLine):
     if nullSpaceLine[0] not in sp:
         return nullSpaceLine
     else:
@@ -79,7 +79,7 @@ def checkPath(line, pathLine):
         sys.stdout.write(line)
         print("ERROR -- path")
         return
-    finalCheck = checkNull(finalLine[1:])
+    finalCheck = checkNull(line,finalLine[1:])
     CRLFCheck = checkCRLF(line, finalCheck)
     if CRLFCheck != True:
         sys.stdout.write(line)

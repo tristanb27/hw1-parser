@@ -3,9 +3,9 @@
 
 import sys
 # Globals
-sp = [' ','\t']
-special = ["<", ">", ")", "(", "]", "[", "\\", ".", ",", ";", ":", '"', "'"]
-letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M,' 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+sp= [' ','\t']
+special = ["<", ">", ")", "(", "]", "[", "\\", ".","@", ",", ";", ":", '"', "'"]
+letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 digit = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 CRLF = '\n'
 null = None
@@ -47,7 +47,7 @@ def mail_from_cmd(line):
 
 # Function used to check if a space between something is null. If it is, simply send the line back, but if it is not, go to the whitespace checker
 def checkNull(nullSpaceLine):
-    if nullSpaceLine[0] in sp == False:
+    if nullSpaceLine[0] not in sp:
         return nullSpaceLine
     else:
         return checkWhitespace(nullSpaceLine)
@@ -131,13 +131,14 @@ def checkDomain(domainLine):
 
 # Checks the whitespace by seeing if at least one character of whitespace exists already, and then checking for further whitespaces
 def checkWhitespace(whitespaceLine):
-    if whitespaceLine[0] not in sp:
-        print("ERROR --whitespace")
-        return
     i = 0
-    while whitespaceLine[i] in sp:
+    while i < len(whitespaceLine):
+        if whitespaceLine[0] not in sp:
+            print("ERROR --whitespace")
+            return None
+        elif whitespaceLine[i] not in sp:
+            return(whitespaceLine[i:])
         i+=1
-    return whitespaceLine[i:]
 
 
 # Checks to see if the \n character exists

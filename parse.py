@@ -13,34 +13,34 @@ null = None
 # Function that hard checks if "MAIL" and "FROM:" are in the cmd, along with infinite whitespace in between
 def mail_from_cmd(line):
     if line[0] != 'M':
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if line[1] != 'A':
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if line[2] != 'I':
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if line[3] != 'L':
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     fromLine = checkWhitespace(line[4:])
     if fromLine is None:
         return
     if fromLine[0] != "F":
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if fromLine[1] != "R":
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if fromLine[2] != "O":
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if fromLine[3] != "M":
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     if fromLine[4] != ":":
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
         return
     reversePathLine = checkNull(fromLine[5:])
     checkReversePath(line, reversePathLine)
@@ -60,19 +60,19 @@ def checkReversePath(line, reversePathLine):
 # Function that checks if the first character is "<" and if the last character is ">". Between those two, it checks the mailbox
 def checkPath(line, pathLine):
     if pathLine[0] != "<":
-        print("ERROR --path")
+        print("ERROR -- path")
         return
     finalLine = checkMailbox(pathLine[1:])
     if finalLine is None:
         return
     if finalLine [0] != ">":
-        print("ERROR --path")
+        print("ERROR -- path")
         return
     finalCheck = checkNull(finalLine[1:])
     CRLFCheck = checkCRLF(line, finalCheck)
     if CRLFCheck != True:
         sys.stdout.write(line)
-        print("ERROR --CRLF")
+        print("ERROR -- CRLF")
         return
     else:
         printLine(line)
@@ -89,7 +89,7 @@ def checkMailbox(mailboxLine):
     if atSymbolLine is None:
         return
     if atSymbolLine[0] != "@":
-        print("ERROR --mailbox")
+        print("ERROR -- mailbox")
         return
     finalBracketLine = checkDomain(atSymbolLine[1:])
     if finalBracketLine is None:
@@ -105,7 +105,7 @@ def checkLocalName(localNameLine):
 # Function for checking local name standards
 def checkString(stringLine):
     if stringLine[0] in sp or stringLine[0] in special:
-        print("ERROR --string")
+        print("ERROR -- string")
         return None
     i = 0
     while i < len(stringLine):
@@ -114,7 +114,7 @@ def checkString(stringLine):
         if stringLine[i] == "@":
             return stringLine[i:]
         if stringLine[i] in special:
-            print("ERROR --string")
+            print("ERROR -- string")
             return None
         i+=1
 
@@ -127,7 +127,7 @@ def checkDomain(domainLine):
             i+=1 
         elif domainLine[i] == '.':
             if domainLine[i+1] in letter == False or domainLine[i+1] in digit == False:
-                print("ERROR --element")
+                print("ERROR -- element")
                 return None
             else:
                 i+=1
@@ -136,7 +136,7 @@ def checkDomain(domainLine):
         elif domainLine[i] == CRLF:
             return domainLine[i:]
         else:
-            print("ERROR --element")
+            print("ERROR -- element")
             return None
         
 
@@ -145,7 +145,7 @@ def checkWhitespace(whitespaceLine):
     i = 0
     while i < len(whitespaceLine):
         if whitespaceLine[0] not in sp:
-            print("ERROR --whitespace")
+            print("ERROR -- whitespace")
             return None
         elif whitespaceLine[i] not in sp:
             return(whitespaceLine[i:])
@@ -166,7 +166,7 @@ def main():
     if line != "":
         mail_from_cmd(line)
     else:
-        print("ERROR --mail-from-cmd")
+        print("ERROR -- mail-from-cmd")
 
 if __name__ == "__main__":
     main()

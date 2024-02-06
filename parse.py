@@ -133,7 +133,7 @@ def checkString(line,stringLine):
 def checkDomain(line,domainLine):
     i = 0
     while i < len(domainLine):
-        if domainLine[0] in sp or domainLine[0] in special:
+        if domainLine[0] not in letter:
             sys.stdout.write(line)
             print("ERROR -- element")
             return None

@@ -140,9 +140,9 @@ def checkDomain(line,domainLine):
         if domainLine[i] in letter or domainLine[i] in digit:
             i+=1
         elif domainLine[i] in sp or digit:
-            if domainLine[i] == '.' and (domainLine[i+1] in letter or domainLine[i+1] in digit):
+            if domainLine[i] == '.' and domainLine[i+1] in letter:
                 i+=1
-            elif domainLine[i] == '.' and (domainLine[i+1] not in letter or domainLine[i+1] not in digit):
+            elif domainLine[i] == '.' and domainLine[i+1] not in letter:
                 sys.stdout.write(line)
                 print("ERROR -- element")
                 return None
